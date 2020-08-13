@@ -10,7 +10,9 @@ export default class SignUp extends Component {
             name: '',
             email: '',
             password: '',
-            rePassword: ''
+            rePassword: '',
+            address:'',
+            numberphone:''
         };
     }
 
@@ -21,7 +23,7 @@ export default class SignUp extends Component {
 
     registerUser = async () => {
         this.refs.loading.show();
-        const { name, email, password, rePassword } = this.state;
+        const { name, email, password, rePassword, address, numberphone } = this.state;
         if(password==rePassword){
            let response = await axios({
                url: 'https://mainf-app.herokuapp.com/api/users/signUp',
@@ -29,7 +31,9 @@ export default class SignUp extends Component {
                data: {
                 email:email,
                 password:password,
-                name:name
+                name:name,
+                address: address,
+                numberphone: numberphone
                },
                headers: {
                 'Content-Type': 'application/json'
@@ -65,32 +69,46 @@ export default class SignUp extends Component {
         const { inputStyle, bigButton, buttonText } = styles;
         return (
             <View>
-                <TextInput 
-                    style={inputStyle} 
-                    placeholder="Họ và tên" 
-                    value={this.state.name}
-                    onChangeText={text => this.setState({ name: text })}
-                />
-                <TextInput 
-                    style={inputStyle} 
-                    placeholder="Email" 
-                    value={this.state.email}
-                    onChangeText={text => this.setState({ email: text })}
-                />
-                <TextInput 
-                    style={inputStyle} 
-                    placeholder="Mật khẩu" 
-                    value={this.state.password}
-                    secureTextEntry
-                    onChangeText={text => this.setState({ password: text })}
-                />
-                <TextInput 
-                    style={inputStyle} 
-                    placeholder="Nhập lại mật khẩu" 
-                    value={this.state.rePassword}
-                    secureTextEntry
-                    onChangeText={text => this.setState({ rePassword: text })}
-                />
+                <TextInput
+          style={inputStyle}
+          placeholder="Họ và tên"
+          value={this.state.name}
+          onChangeText={text => this.setState({name: text})}
+        />
+        <TextInput
+          style={inputStyle}
+          placeholder="Email"
+          keyboardType = 'email-address'
+          value={this.state.email}
+          onChangeText={text => this.setState({email: text})}
+        />
+        <TextInput
+          style={inputStyle}
+          placeholder="Address"
+          value={this.state.address}
+          onChangeText={text => this.setState({address: text})}
+        />
+        <TextInput
+          style={inputStyle}
+          placeholder="Numberphone"
+          value={this.state.numberphone}
+          keyboardType = 'numeric'
+          onChangeText={text => this.setState({numberphone: text})}
+        />
+        <TextInput
+          style={inputStyle}
+          placeholder="Mật khẩu"
+          value={this.state.password}
+          secureTextEntry
+          onChangeText={text => this.setState({password: text})}
+        />
+        <TextInput
+          style={inputStyle}
+          placeholder="Nhập lại mật khẩu"
+          value={this.state.rePassword}
+          secureTextEntry
+          onChangeText={text => this.setState({rePassword: text})}
+        />
                 <TouchableOpacity style={bigButton} onPress={this.registerUser.bind(this)}>
                     <Text style={buttonText}>Đăng kí</Text>
                 </TouchableOpacity>

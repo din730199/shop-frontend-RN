@@ -8,18 +8,15 @@ class AuthLoading extends Component {
   };
 
   async componentDidMount() {
-      try {
-        const token = await AsyncStorage.getItem('token')
-        console.log(token);
-        token
-        ?
-          this.props.navigation.navigate('Home')
-        :
-          this.props.navigation.navigate('Authentication')
-        
-      } catch(e) {
-        // error reading value
-      }
+    try {
+      const token = await AsyncStorage.getItem('token');
+      console.log(token);
+      token
+        ? this.props.navigation.navigate('Home')
+        : this.props.navigation.navigate('Authentication');
+    } catch (e) {
+      // error reading value
+    }
   }
 
   render() {
@@ -27,12 +24,15 @@ class AuthLoading extends Component {
       return (
         <ActivityIndicator
           size="large"
-          style={{flex: 1, alignContent: 'center', justifyContent: 'center'}}
+          style={{
+            flex: 1,
+            alignContent: 'center',
+            justifyContent: 'center',
+          }}
         />
       );
     }
   }
 }
-
 
 export default AuthLoading;
